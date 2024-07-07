@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
 
-def to_data_frame(root_file):
-    cal2hit_par = root_file.Get("NeulandHitPar")
+def to_data_frame(root_file, cycle_offset):
+    max_cycle_num = root_file.GetKey("NeulandHitPar",9999).GetCycle() 
+    cycle_num = max_cycle_num + cycle_offset
+    cal2hit_par = root_file.Get(f"NeulandHitPar;{cycle_num}")
     module_pars = cal2hit_par.GetListOfModulePar()
     size = len(module_pars)
     print(f"size of module pars: {size}")
