@@ -1,0 +1,127 @@
+{
+    "general": {
+        "run-id": 999,
+        "number-of-events": -1,
+        "enable-mpi": false,
+        "log-level": "error",
+        "input": {
+            "working-dir": "/lustre/r3b/pulrich/Down/sim",
+            "data": [
+                "4GeV.output.root"
+            ],
+            "tree-data": [],
+            "first-par": "4GeV.par.root",
+            "second-par": ""
+        },
+        "output": {
+            "working-dir": "/lustre/r3b/ywang/test/test_muon",
+            "data": "ana.output.root",
+            "par": "ana.par.root"
+        }
+    },
+    "tasks": {
+        "NeulandDigitizer": {
+            "enable": true,
+            "channel": "tamex",
+            "paddle": "neuland",
+            "par": {
+                "fPMTThresh": 1.0,
+                "fSaturationCoefficient": 0.012,
+                "fExperimentalDataIsCorrectedForSaturation": true,
+                "fTimeRes": 0.15,
+                "fEResRel": 0.05,
+                "fEnergyGain": 15.0,
+                "fPedestal": 14.0,
+                "fTimeMax": 1000.0,
+                "fTimeMin": 1.0,
+                "fPileUpTimeWindow": 1000.0,
+                "fPileUpDistance": 100.0,
+                "fQdcMin": 0.067
+            },
+            "pileup-strategy": "width",
+            "enable-sim-cal": false,
+            "enable-hit-par": false,
+            "read": "NeulandPoints;NeulandHitPar",
+            "write": "NeulandHits;NeulandSimCal"
+        },
+        "NeulandSimCal2Cal": {
+            "enable": false,
+            "read": "NeulandSimCal",
+            "write": "NeulandCalData"
+        },
+        "NeulandHitMon": {
+            "enable": false,
+            "read": "NeulandHits",
+            "write": ""
+        },
+        "NeulandPrimaryInteractionFinder": {
+            "enable": false,
+            "read": "NeulandPoints;NeulandHits",
+            "write": "NeulandPrimaryPoints;NeulandPrimaryHits;NeulandPrimaryTracks"
+        },
+        "NeulandClusterFinder": {
+            "enable": false,
+            "read": "read",
+            "write": "write"
+        },
+        "NeulandPrimaryClusterFinder": {
+            "enable": false,
+            "read": "NeulandPrimaryHits;NeulandClusters",
+            "write": "NeulandPrimaryClusters;NeulandSecondaryClusters"
+        },
+        "NeulandMultiplicityCalorimetricTrain": {
+            "enable": false,
+            "use-hit": false,
+            "weight": 0.0,
+            "edep-opt": {
+                "init": 200.0,
+                "step": 25.0,
+                "lower": 50.0,
+                "upper": 1500.0
+            },
+            "edep-off-opt": {
+                "init": 5.0,
+                "step": 1.0,
+                "lower": 0.0,
+                "upper": 250.0
+            },
+            "n-cluster-opt": {
+                "init": 10.0,
+                "step": 5.0,
+                "lower": 5.0,
+                "upper": 50.0
+            },
+            "n-cluster-off-opt": {
+                "init": 2.0,
+                "step": 1.0,
+                "lower": 0.0,
+                "upper": 10.0
+            },
+            "read": "NeulandClusters;NeulandPrimaryTracks;NeulandPrimaryHits",
+            "write": ""
+        },
+        "NeulandMultiplicityBayesTrain": {
+            "enable": false,
+            "read": "NeulandClusters;NeulandPrimaryTracks",
+            "write": ""
+        },
+        "NeulandMultiplicityBayes": {
+            "enable": false,
+            "read": "NeulandClusters",
+            "write": "NeulandMultiplicity"
+        },
+        "NeulandNeutronsRValue": {
+            "enable": false,
+            "neutron-energy-MeV": 600.0,
+            "read": "NeulandMultiplicity;NeulandClusters",
+            "write": "NeulandNeutrons"
+        },
+        "NeulandCal2HitParTask": {
+            "enable": false,
+            "min-stat": 10,
+            "method": "LSQT",
+            "read": "NeulandCalData;NeulandCalibrationBasePar",
+            "write": "NeulandHitPar"
+        }
+    }
+}
