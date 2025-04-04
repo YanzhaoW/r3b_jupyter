@@ -3,7 +3,7 @@
         "run-id": 999,
         "number-of-events": 10,
         "enable-mpi": false,
-        "log-level": "debug",
+        "log-level": "info",
         "input": {
             "working-dir": "/lustre/r3b/pulrich/Down/sim",
             "data": [
@@ -14,16 +14,16 @@
             "second-par": ""
         },
         "output": {
-            "working-dir": "/lustre/r3b/ywang/test/test_muon",
-            "data": "ana.output.root",
-            "par": "ana.par.root"
+            "working-dir": "/lustre/r3b/ywang/analysis/jupyter/R3B2025York",
+            "data": "test.output.root",
+            "par": "test.par.root"
         }
     },
     "tasks": {
         "NeulandDigitizer": {
             "enable": true,
             "channel": "tamex",
-            "paddle": "mock",
+            "paddle": "neuland",
             "par": {
                 "fPMTThresh": 1.0,
                 "fSaturationCoefficient": 0.012,
@@ -39,7 +39,7 @@
                 "fQdcMin": 0.067
             },
             "pileup-strategy": "width",
-            "enable-sim-cal": false,
+            "enable-sim-cal": true,
             "enable-hit-par": false,
             "read": "NeulandPoints;NeulandHitPar",
             "write": "NeulandHits;NeulandSimCal"

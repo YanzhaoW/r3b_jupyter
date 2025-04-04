@@ -1,29 +1,27 @@
 {
     "general": {
         "run-id": 999,
-        "number-of-events": 10,
+        "number-of-events": -1,
         "enable-mpi": false,
-        "log-level": "debug",
+        "log-level": "error",
         "input": {
-            "working-dir": "/lustre/r3b/pulrich/Down/sim",
+            "working-dir": "/lustre/r3b/ywang/analysis/jupyter/neuland_doc",
             "data": [
-                "4GeV.output.root"
+                "sim.output.root.*"
             ],
-            "tree-data": [],
-            "first-par": "4GeV.par.root",
-            "second-par": ""
+            "first-par": "sim.par.root.0"
         },
         "output": {
-            "working-dir": "/lustre/r3b/ywang/test/test_muon",
-            "data": "ana.output.root",
-            "par": "ana.par.root"
+            "working-dir": "/lustre/r3b/ywang/analysis/jupyter/neuland_doc",
+            "data": "digi.output.root",
+            "par": "digi.par.root"
         }
     },
     "tasks": {
         "NeulandDigitizer": {
             "enable": true,
             "channel": "tamex",
-            "paddle": "mock",
+            "paddle": "neuland",
             "par": {
                 "fPMTThresh": 1.0,
                 "fSaturationCoefficient": 0.012,
@@ -41,6 +39,7 @@
             "pileup-strategy": "width",
             "enable-sim-cal": false,
             "enable-hit-par": false,
+            "enable-size-monitor": true,
             "read": "NeulandPoints;NeulandHitPar",
             "write": "NeulandHits;NeulandSimCal"
         }

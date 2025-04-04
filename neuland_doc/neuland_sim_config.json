@@ -1,0 +1,59 @@
+{
+    "general": {
+        "run-id": 999,
+        "number-of-events": 10000,
+        "enable-mpi": true,
+        "log-level": "error",
+        "output": {
+            "working-dir": "/lustre/r3b/ywang/analysis/jupyter/neuland_doc",
+            "data": "sim.output.root",
+            "par": "sim.par.root"
+        }
+    },
+    "simulation": {
+        "event-print-num": 1000,
+        "store-trajectory": false,
+        "material-filename": "media_r3b.geo",
+        "engine": "TGeant4",
+        "random-seed": 0,
+        "generator": {
+            "type": "box",
+            "particle": "neutron",
+            "energy": {
+                "value": 1.2,
+                "error": 0.0
+            },
+            "theta": {
+                "min": 0.0,
+                "max": 3.0
+            },
+            "phi": {
+                "min": 0.0,
+                "max": 360.0
+            },
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    },
+    "detectors": {
+        "cave": {
+            "enable": true,
+            "name": "CAVE",
+            "geo-file": "r3b_cave.geo"
+        },
+        "neuland": {
+            "enable": true,
+            "name": "Neuland",
+            "num-of-dp": 13,
+            "location": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1650.0
+            },
+            "enable-auto-geo-build": true
+        }
+    }
+}
